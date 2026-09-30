@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>StockEx — Add Product</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/preferences.js" defer></script>
+  <script src="js/camera.js" defer></script>
+</head>
+
+<body>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5 9.5V21h5v-6h4v6h5V9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-box" viewBox="0 0 24 24">
+        <rect x="3" y="7" width="18" height="13" rx="1.5" stroke-width="2" />
+        <path d="M3 7l2.5-4h13L21 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9 11h6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-plus-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-person" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" stroke-width="2" />
+        <path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 24 24">
+        <path d="M12 20h9" stroke-width="2" stroke-linecap="round" />
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" stroke-width="2" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-barcode" viewBox="0 0 24 24">
+        <path d="M4 4v16M8 4v16M11 4v16M13.5 4v16M17 4v16M20 4v16" stroke-width="1.6" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-camera" viewBox="0 0 24 24">
+        <rect x="3" y="7" width="18" height="13" rx="2" stroke-width="2" />
+        <path d="M8 7l1.3-2.5h5.4L16 7" stroke-width="2" stroke-linejoin="round" />
+        <circle cx="12" cy="13.5" r="3.4" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 11v5" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="8" r="0.9" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-warehouse" viewBox="0 0 24 24">
+        <path d="M3 21V10l9-6 9 6v11" stroke-width="2" stroke-linejoin="round" />
+        <path d="M9 21v-6h6v6" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-check-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M8 12.5l2.7 2.7L16 9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 7.5V12l3 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-alert-triangle" viewBox="0 0 24 24">
+        <path d="M12 3 2 21h20L12 3z" stroke-width="2" stroke-linejoin="round" />
+        <path d="M12 9.5v4.2" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-alert-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 7.5v5" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="16" r="0.9" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-x-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M9 9l6 6M15 9l-6 6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="app-header">
+    <div class="app-header__row">
+      <div class="app-header__brand">
+        <img src="assets/logo-lockup.svg" alt="StockEx" class="app-header__logo">
+        <div class="app-header__divider"></div>
+        <div class="app-header__meta">
+          <span class="app-header__business">Adeyemi Stores</span>
+          <span class="app-header__sync"><span class="dot"></span>All synced</span>
+        </div>
+      </div>
+      <button class="account-button" aria-label="Account"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg></button>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <div style="display:flex;align-items:center;justify-content:flex-start;margin-bottom:16px;">
+      <div>
+        <h1 class="page-title">Add Product</h1>
+        <p class="page-subtitle">Record stock details and expiry</p>
+      </div>
+    </div>
+
+    <!-- Manual / Scan / Photo — plain labels, no unstated "AI" claim on Photo -->
+    <div class="segmented" role="tablist">
+      <button class="is-active" id="tab-manual" onclick="switchTab('manual')"><svg class="icon" viewBox="0 0 24 24"
+          style="width:16px;height:16px;">
+          <use href="#icon-edit" />
+        </svg>Manual</button>
+      <button id="tab-scan" onclick="switchTab('scan')"><svg class="icon" viewBox="0 0 24 24"
+          style="width:16px;height:16px;">
+          <use href="#icon-barcode" />
+        </svg>Scan</button>
+      <button id="tab-photo" onclick="switchTab('photo')"><svg class="icon" viewBox="0 0 24 24"
+          style="width:16px;height:16px;">
+          <use href="#icon-camera" />
+        </svg>Photo</button>
+    </div>
+
+    <div class="product-photo-preview" id="productPhotoPreview" hidden>
+      <img id="productPhotoImage" alt="Captured product label">
+    </div>
+
+    <div class="info-banner">
+      <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+        <use href="#icon-info" />
+      </svg>
+      <p>Switching to <strong>Scan</strong> or <strong>Photo</strong> safely preserves any values entered below.</p>
+    </div>
+
+    <form id="productForm" onsubmit="event.preventDefault(); handleSave(false);">
+
+      <div class="field">
+        <label for="prodName">Product Name *</label>
+        <div class="field-with-action">
+          <input type="text" id="prodName" required value="Highland Whole Milk 1L"
+            placeholder="e.g., Highland Whole Milk 1L" autocomplete="off">
+          <button type="button" class="field-inline-btn" aria-label="Scan barcode for name" onclick="switchTab('scan')">
+            <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+              <use href="#icon-barcode" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="prodBarcode">Barcode</label>
+        <input type="text" id="prodBarcode" inputmode="numeric" autocomplete="off" placeholder="Scan or enter barcode">
+      </div>
+
+      <div class="field">
+        <label for="prodCategoryTrigger">Category</label>
+        <div class="choice-picker" id="categoryPicker">
+          <input type="hidden" id="prodCategory" name="category" value="Dairy &amp; Chilled Essentials">
+          <button type="button" class="choice-picker__trigger" id="prodCategoryTrigger" aria-haspopup="listbox"
+            aria-expanded="false" aria-controls="prodCategoryMenu">
+            <span id="prodCategoryLabel">Dairy &amp; Chilled Essentials</span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#icon-chevron-down" />
+            </svg>
+          </button>
+          <div class="choice-picker__menu" id="prodCategoryMenu" role="listbox" aria-label="Product categories" hidden>
+            <button type="button" class="choice-picker__other" id="showCustomProductCategory">Other</button>
+            <div class="choice-picker__custom" id="customProductCategoryForm" hidden>
+              <label class="visually-hidden" for="customProductCategoryName">New category name</label>
+              <input type="text" id="customProductCategoryName" maxlength="32" placeholder="Add a category">
+              <button type="button" class="btn btn-primary" id="saveCustomProductCategory">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="prodQty">Quantity</label>
+          <div class="stepper">
+            <button type="button" onclick="adjustQty(-1)">−</button>
+            <input type="number" id="prodQty" min="1" value="12" autocomplete="off">
+            <button type="button" onclick="adjustQty(1)">+</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="prodUnit">Unit</label>
+          <div class="choice-picker" id="unitPicker">
+            <input type="hidden" id="prodUnit" name="unit" value="Bottles">
+            <button type="button" class="choice-picker__trigger" id="unitPickerTrigger" aria-haspopup="listbox"
+              aria-expanded="false" aria-controls="unitPickerMenu">
+              <span id="prodUnitLabel">Bottles</span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <use href="#icon-chevron-down" />
+              </svg>
+            </button>
+            <div class="choice-picker__menu" id="unitPickerMenu" role="listbox" aria-label="Unit options" hidden>
+              <button type="button" class="choice-picker__other" id="showCustomUnit">Other</button>
+              <div class="choice-picker__custom" id="customUnitForm" hidden>
+                <label class="visually-hidden" for="customUnitName">New unit name</label>
+                <input type="text" id="customUnitName" maxlength="24" placeholder="Add a unit">
+                <button type="button" class="btn btn-primary" id="saveCustomUnit">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field__label-row">
+          <label for="prodExpiry">Expiry Date *</label>
+          <span class="field__hint">Required</span>
+        </div>
+        <input type="date" id="prodExpiry" required onchange="updateStatusPreview()" autocomplete="off">
+        <div class="preset-row">
+          <button type="button" class="preset-chip" onclick="setPresetDays(4)">+4 Days</button>
+          <button type="button" class="preset-chip" onclick="setPresetDays(7)">+7 Days</button>
+          <button type="button" class="preset-chip" onclick="setPresetDays(14)">+14 Days</button>
+          <button type="button" class="preset-chip" onclick="setPresetDays(30)">+30 Days</button>
+        </div>
+      </div>
+
+      <!-- Live preview — now driven by js/expiry.js, so it matches PRD Sec. 9 exactly -->
+      <div class="status-preview" id="statusPreview">
+        <svg class="icon" viewBox="0 0 24 24" id="statusIcon" style="width:22px;height:22px;">
+          <use href="#icon-clock" />
+        </svg>
+        <div>
+          <div class="status-preview__label">Calculated Expiry Status</div>
+          <div class="status-preview__text" id="statusText">Select a date to preview status</div>
+        </div>
+      </div>
+
+      <!-- Not in the PRD's data model (Sec. 07) — kept as a UI convenience per
+         earlier conversation, pending your confirmation before treating it
+         as a real backend field. See README. -->
+      <div class="field">
+        <div class="field__label-row">
+          <label for="prodStorage">Storage / Shelf Location</label>
+          <span class="field__hint" style="color:var(--color-text-muted);">Optional</span>
+        </div>
+        <div class="field-with-action">
+          <input type="text" id="prodStorage" placeholder="e.g., Front display chiller #2"
+            value="Front display chiller #2" autocomplete="off">
+          <span class="field-inline-btn" style="pointer-events:none;"><svg class="icon" viewBox="0 0 24 24"
+              style="width:18px;height:18px;">
+              <use href="#icon-warehouse" />
+            </svg></span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+        <button type="submit" class="btn btn-primary btn--full">
+          <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+            <use href="#icon-check-circle" />
+          </svg>
+          Add to Inventory
+        </button>
+        <button type="button" class="btn btn-secondary btn--full" onclick="handleSave(true)">
+          <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+            <use href="#icon-plus" />
+          </svg>
+          Save &amp; Add Another
+        </button>
+        <button type="button" class="btn btn-ghost btn--full" onclick="window.location.href='inventory.html'">Cancel and
+          return to stock</button>
+      </div>
+    </form>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav__row">
+      <a class="bottom-nav__item" href="dashboard.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-home" />
+        </svg>Home</a>
+      <a class="bottom-nav__item" href="inventory.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-box" />
+        </svg>Stock</a>
+      <a class="bottom-nav__item is-active" href="add-product.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-plus-circle" />
+        </svg>Add</a>
+      <a class="bottom-nav__item" href="settings.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg>Account</a>
+    </div>
+  </nav>
+
+  <script src="js/expiry.js"></script>
+  <script>
+    const TIER_ICON = {
+      safe: '#icon-check-circle',
+      expiring: '#icon-clock',
+      urgent: '#icon-alert-triangle',
+      today: '#icon-alert-circle',
+      expired: '#icon-x-circle'
+    };
+    const TIER_STYLE = {
+      safe: { bg: 'var(--color-surface-subtle)', color: 'var(--color-primary)' },
+      expiring: { bg: 'var(--status-expiring-bg)', color: 'var(--status-expiring-text)' },
+      urgent: { bg: 'var(--status-urgent-bg)', color: 'var(--status-urgent-text)' },
+      today: { bg: 'var(--status-today-bg)', color: 'var(--status-today-text)' },
+      expired: { bg: 'var(--status-expired-bg)', color: 'var(--status-expired-text)' }
+    };
+
+    function setPresetDays(days) {
+      const d = new Date();
+      d.setDate(d.getDate() + days);
+      document.getElementById('prodExpiry').value = d.toISOString().split('T')[0];
+      updateStatusPreview();
+    }
+
+    function updateStatusPreview() {
+      const val = document.getElementById('prodExpiry').value;
+      const preview = document.getElementById('statusPreview');
+      const text = document.getElementById('statusText');
+      const iconUse = document.getElementById('statusIcon').querySelector('use');
+
+      if (!val) {
+        preview.style.background = 'var(--color-surface-subtle)';
+        preview.style.color = 'var(--color-text-secondary)';
+        text.textContent = 'Select a date to preview status';
+        return;
+      }
+
+      const result = window.StockExExpiry.calculateExpiryStatus(val);
+      const style = TIER_STYLE[result.tier];
+      preview.style.background = style.bg;
+      preview.style.color = style.color;
+      iconUse.setAttribute('href', TIER_ICON[result.tier]);
+      text.textContent = result.label + ' · ' + result.detail;
+    }
+
+    function adjustQty(delta) {
+      const input = document.getElementById('prodQty');
+      input.value = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
+    }
+
+    const categoryStorageKey = 'stockex.customCategories';
+    const hiddenProductCategoriesKey = 'stockex.hiddenProductCategories';
+    const defaultCategories = [
+      { label: 'Dairy & Chilled Essentials', key: 'dairy-chilled-essentials' },
+      { label: 'Fresh Bakery & Pastries', key: 'fresh-bakery-pastries' },
+      { label: 'Pantry & Dry Groceries', key: 'pantry-dry-groceries' },
+      { label: 'Over-the-Counter & Pharmacy', key: 'over-the-counter-pharmacy' },
+      { label: 'Beverages & Juices', key: 'beverages-juices' }
+    ];
+    const categoryMenu = document.getElementById('prodCategoryMenu');
+    const categoryTrigger = document.getElementById('prodCategoryTrigger');
+    const customProductCategoryInput = document.getElementById('customProductCategoryName');
+    let customCategories = [];
+    let hiddenProductCategories = [];
+
+    try {
+      const savedCategories = JSON.parse(localStorage.getItem(categoryStorageKey) || '[]');
+      if (Array.isArray(savedCategories)) {
+        customCategories = savedCategories.filter(category =>
+          category && typeof category.label === 'string' && typeof category.key === 'string'
+        );
+      }
+    } catch {
+      customCategories = [];
+    }
+
+    try {
+      const savedHiddenCategories = JSON.parse(localStorage.getItem(hiddenProductCategoriesKey) || '[]');
+      if (Array.isArray(savedHiddenCategories)) hiddenProductCategories = savedHiddenCategories;
+    } catch {
+      hiddenProductCategories = [];
+    }
+
+    function renderProductCategories() {
+      categoryMenu.querySelectorAll('[data-category-row]').forEach(option => option.remove());
+      const otherButton = document.getElementById('showCustomProductCategory');
+      [...defaultCategories, ...customCategories]
+        .filter(category => !hiddenProductCategories.includes(category.key))
+        .forEach(category => {
+          const row = document.createElement('div');
+          row.className = 'choice-option-row';
+          row.dataset.categoryRow = '';
+          const option = document.createElement('button');
+          option.type = 'button';
+          option.className = 'choice-picker__option';
+          option.setAttribute('role', 'option');
+          option.textContent = category.label;
+          option.addEventListener('click', () => selectProductCategory(category));
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'choice-picker__remove';
+          remove.setAttribute('aria-label', 'Remove category ' + category.label);
+          remove.title = 'Remove category';
+          remove.textContent = '×';
+          remove.addEventListener('click', () => removeProductCategory(category));
+          row.append(option, remove);
+          categoryMenu.insertBefore(row, otherButton);
+      });
+    }
+
+    function selectProductCategory(category) {
+      document.getElementById('prodCategory').value = category ? category.label : '';
+      document.getElementById('prodCategoryLabel').textContent = category ? category.label : 'Choose a category';
+      categoryMenu.hidden = true;
+      categoryTrigger.setAttribute('aria-expanded', 'false');
+      document.getElementById('customProductCategoryForm').hidden = true;
+    }
+
+    function removeProductCategory(category) {
+      if (!window.confirm('Remove the category "' + category.label + '"?')) return;
+
+      if (customCategories.some(item => item.key === category.key)) {
+        customCategories = customCategories.filter(item => item.key !== category.key);
+        try {
+          localStorage.setItem(categoryStorageKey, JSON.stringify(customCategories));
+        } catch {
+          // Keep the category removed for this page if storage is unavailable.
+        }
+      } else {
+        hiddenProductCategories.push(category.key);
+        try {
+          localStorage.setItem(hiddenProductCategoriesKey, JSON.stringify(hiddenProductCategories));
+        } catch {
+          // Keep the category hidden for this page if storage is unavailable.
+        }
+      }
+
+      if (document.getElementById('prodCategory').value === category.label) {
+        const next = [...defaultCategories, ...customCategories]
+          .find(item => !hiddenProductCategories.includes(item.key));
+        selectProductCategory(next);
+      }
+      renderProductCategories();
+    }
+
+    categoryTrigger.addEventListener('click', () => {
+      categoryMenu.hidden = !categoryMenu.hidden;
+      categoryTrigger.setAttribute('aria-expanded', String(!categoryMenu.hidden));
+    });
+
+    document.getElementById('showCustomProductCategory').addEventListener('click', () => {
+      document.getElementById('customProductCategoryForm').hidden = false;
+      customProductCategoryInput.focus();
+    });
+
+    function addCustomProductCategory() {
+      const label = customProductCategoryInput.value.trim();
+      if (!label) {
+        customProductCategoryInput.focus();
+        return;
+      }
+
+      const existing = [...defaultCategories, ...customCategories].find(category =>
+        category.label.toLowerCase() === label.toLowerCase()
+      );
+      if (existing) {
+        if (hiddenProductCategories.includes(existing.key)) {
+          hiddenProductCategories = hiddenProductCategories.filter(key => key !== existing.key);
+          try {
+            localStorage.setItem(hiddenProductCategoriesKey, JSON.stringify(hiddenProductCategories));
+          } catch {
+            // Keep the category visible for this page if storage is unavailable.
+          }
+          renderProductCategories();
+        }
+        customProductCategoryInput.value = '';
+        selectProductCategory(existing);
+        return;
+      }
+
+      const baseKey = label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'other';
+      const usedKeys = new Set([
+        'all',
+        'dairy',
+        'bakery',
+        'pharmacy',
+        'groceries',
+        ...defaultCategories.map(category => category.key),
+        ...customCategories.map(category => category.key)
+      ]);
+      let key = baseKey;
+      let suffix = 2;
+      while (usedKeys.has(key)) key = baseKey + '-' + suffix++;
+
+      const category = { label, key };
+      customCategories.push(category);
+      try {
+        localStorage.setItem(categoryStorageKey, JSON.stringify(customCategories));
+      } catch {
+        // Keep the category available for this page even if storage is unavailable.
+      }
+
+      renderProductCategories();
+      customProductCategoryInput.value = '';
+      selectProductCategory(category);
+    }
+
+    document.getElementById('saveCustomProductCategory').addEventListener('click', addCustomProductCategory);
+    customProductCategoryInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        addCustomProductCategory();
+      }
+    });
+    document.addEventListener('click', event => {
+      if (!document.getElementById('categoryPicker').contains(event.target)) {
+        categoryMenu.hidden = true;
+        categoryTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !categoryMenu.hidden) {
+        categoryMenu.hidden = true;
+        categoryTrigger.setAttribute('aria-expanded', 'false');
+        categoryTrigger.focus();
+      }
+    });
+    renderProductCategories();
+
+    const unitMenu = document.getElementById('unitPickerMenu');
+    const unitTrigger = document.getElementById('unitPickerTrigger');
+    const customUnitInput = document.getElementById('customUnitName');
+    const unitStorageKey = 'stockex.customUnits';
+    const hiddenUnitsKey = 'stockex.hiddenUnits';
+    const defaultUnits = ['Bottles', 'Packs', 'Bags', 'Loaves', 'Kg'];
+    let customUnits = [];
+    let hiddenUnits = [];
+
+    try {
+      const savedUnits = JSON.parse(localStorage.getItem(unitStorageKey) || '[]');
+      if (Array.isArray(savedUnits)) customUnits = savedUnits.filter(unit => typeof unit === 'string');
+    } catch {
+      customUnits = [];
+    }
+
+    try {
+      const savedHiddenUnits = JSON.parse(localStorage.getItem(hiddenUnitsKey) || '[]');
+      if (Array.isArray(savedHiddenUnits)) hiddenUnits = savedHiddenUnits;
+    } catch {
+      hiddenUnits = [];
+    }
+
+    function renderUnitOptions() {
+      unitMenu.querySelectorAll('[data-unit-row]').forEach(option => option.remove());
+      const otherButton = document.getElementById('showCustomUnit');
+      [...defaultUnits, ...customUnits].filter(unit => !hiddenUnits.includes(unit)).forEach(unit => {
+        const row = document.createElement('div');
+        row.className = 'choice-option-row';
+        row.dataset.unitRow = '';
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'choice-picker__option';
+        option.setAttribute('role', 'option');
+        option.textContent = unit;
+        option.addEventListener('click', () => selectUnit(unit));
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'choice-picker__remove';
+        remove.setAttribute('aria-label', 'Remove unit ' + unit);
+        remove.title = 'Remove unit';
+        remove.textContent = '×';
+        remove.addEventListener('click', () => removeUnit(unit));
+        row.append(option, remove);
+        unitMenu.insertBefore(row, otherButton);
+      });
+    }
+
+    function selectUnit(unit) {
+      document.getElementById('prodUnit').value = unit || '';
+      document.getElementById('prodUnitLabel').textContent = unit || 'Choose a unit';
+      unitMenu.hidden = true;
+      unitTrigger.setAttribute('aria-expanded', 'false');
+      document.getElementById('customUnitForm').hidden = true;
+    }
+
+    function removeUnit(unit) {
+      if (!window.confirm('Remove the unit "' + unit + '"?')) return;
+
+      if (customUnits.includes(unit)) {
+        customUnits = customUnits.filter(item => item !== unit);
+        try {
+          localStorage.setItem(unitStorageKey, JSON.stringify(customUnits));
+        } catch {
+          // Keep the unit removed for this page if storage is unavailable.
+        }
+      } else {
+        hiddenUnits.push(unit);
+        try {
+          localStorage.setItem(hiddenUnitsKey, JSON.stringify(hiddenUnits));
+        } catch {
+          // Keep the unit hidden for this page if storage is unavailable.
+        }
+      }
+
+      if (document.getElementById('prodUnit').value === unit) {
+        selectUnit([...defaultUnits, ...customUnits].find(item => !hiddenUnits.includes(item)) || '');
+      }
+      renderUnitOptions();
+    }
+
+    unitTrigger.addEventListener('click', () => {
+      unitMenu.hidden = !unitMenu.hidden;
+      unitTrigger.setAttribute('aria-expanded', String(!unitMenu.hidden));
+    });
+
+    document.getElementById('showCustomUnit').addEventListener('click', () => {
+      document.getElementById('customUnitForm').hidden = false;
+      customUnitInput.focus();
+    });
+
+    function addCustomUnit() {
+      const unit = customUnitInput.value.trim();
+      if (!unit) {
+        customUnitInput.focus();
+        return;
+      }
+
+      const existing = [...defaultUnits, ...customUnits].find(option => option.toLowerCase() === unit.toLowerCase());
+      const selectedUnit = existing || unit;
+      if (existing && hiddenUnits.includes(existing)) {
+        hiddenUnits = hiddenUnits.filter(item => item !== existing);
+        try {
+          localStorage.setItem(hiddenUnitsKey, JSON.stringify(hiddenUnits));
+        } catch {
+          // Keep the unit visible for this page if storage is unavailable.
+        }
+      }
+      if (!existing) {
+        customUnits.push(unit);
+        try {
+          localStorage.setItem(unitStorageKey, JSON.stringify(customUnits));
+        } catch {
+          // Keep the new unit available for this page even if storage is unavailable.
+        }
+        renderUnitOptions();
+      }
+
+      customUnitInput.value = '';
+      selectUnit(selectedUnit);
+    }
+
+    document.getElementById('saveCustomUnit').addEventListener('click', addCustomUnit);
+    customUnitInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        addCustomUnit();
+      }
+    });
+    document.addEventListener('click', event => {
+      if (!document.getElementById('unitPicker').contains(event.target)) {
+        unitMenu.hidden = true;
+        unitTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !unitMenu.hidden) {
+        unitMenu.hidden = true;
+        unitTrigger.setAttribute('aria-expanded', 'false');
+        unitTrigger.focus();
+      }
+    });
+
+    renderUnitOptions();
+
+    function switchTab(mode) {
+      ['manual', 'scan', 'photo'].forEach(t => {
+        document.getElementById('tab-' + t).classList.toggle('is-active', t === mode);
+      });
+      if (mode === 'scan') {
+        window.StockExCamera.open({
+          mode: 'scan',
+          onBarcode: value => {
+            document.getElementById('prodBarcode').value = value;
+            document.getElementById('prodBarcode').focus();
+          }
+        });
+      }
+      if (mode === 'photo') {
+        window.StockExCamera.open({
+          mode: 'photo',
+          onCapture: file => {
+            const image = document.getElementById('productPhotoImage');
+            if (image.dataset.objectUrl) URL.revokeObjectURL(image.dataset.objectUrl);
+            image.dataset.objectUrl = URL.createObjectURL(file);
+            image.src = image.dataset.objectUrl;
+            document.getElementById('productPhotoPreview').hidden = false;
+            switchTab('manual');
+          }
+        });
+      }
+    }
+
+    function handleSave(addAnother) {
+      const name = document.getElementById('prodName').value;
+      const expiry = document.getElementById('prodExpiry').value;
+      if (!name || !expiry) { alert('Please fill out Product Name and Expiry Date.'); return; }
+      if (addAnother) {
+        document.getElementById('prodName').value = '';
+        document.getElementById('prodQty').value = '1';
+        document.getElementById('prodName').focus();
+      } else {
+        alert('Product saved to inventory.');
+        window.location.href = 'inventory.html';
+      }
+    }
+
+    // Default to +4 days so the preview illustrates an "Urgent" example on load
+    setPresetDays(4);
+  </script>
+
+</body>
+
+</html>

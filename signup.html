@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>StockEx — Create your account</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/preferences.js" defer></script>
+</head>
+
+<body>
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+        <path d="M19 12H5M11 6l-6 6 6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="auth-page">
+    <aside class="auth-page__aside">
+      <img src="assets/logo-lockup.svg" alt="StockEx" class="auth-page__brand">
+      <div class="auth-page__message">
+        <span class="auth-page__eyebrow">StockEx · Stock expiry tracking</span>
+        <h2>Know what needs attention before stock becomes a loss.</h2>
+        <p>Record what your business sells and when it expires. StockEx recalculates expiry status so you can act without ledger math.</p>
+        <div class="auth-page__tiers" aria-label="Expiry statuses">
+          <span class="badge badge--safe">Safe</span>
+          <span class="badge badge--expiring">Expiring soon</span>
+          <span class="badge badge--urgent">Urgent</span>
+          <span class="badge badge--today">Expires today</span>
+          <span class="badge badge--expired">Expired</span>
+        </div>
+      </div>
+    </aside>
+    <div class="auth-page__back">
+      <a href="index.html" aria-label="Back"
+        style="min-width:48px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;color:var(--color-text-primary);">
+        <svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-arrow-left" />
+        </svg>
+      </a>
+    </div>
+    <div class="auth-page__body">
+      <img src="assets/logo-icon.svg" alt="" class="auth-page__logo">
+      <h1 class="auth-page__title">Create your account</h1>
+      <p class="auth-page__subtitle">Start tracking the products you sell and the dates they need attention.</p>
+
+      <form id="signupForm" onsubmit="event.preventDefault(); handleSignup();">
+        <div class="field">
+          <label for="bizName">Business name *</label>
+          <input type="text" id="bizName" required placeholder="e.g., Adeyemi Stores" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="bizEmail">Business email *</label>
+          <input type="email" id="bizEmail" required placeholder="you@yourbusiness.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="bizPassword">Password *</label>
+          <div class="password-field">
+            <input type="password" id="bizPassword" required minlength="8" placeholder="At least 8 characters" autocomplete="new-password">
+            <button type="button" class="password-toggle" aria-controls="bizPassword" aria-pressed="false">Show</button>
+          </div>
+          <span class="field-error" id="pwError">Password must be at least 8 characters.</span>
+        </div>
+        <button type="submit" class="btn btn-primary btn--full">Create account</button>
+      </form>
+
+      <p class="auth-page__foot">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
+
+  <script>
+    function handleSignup() {
+      const pw = document.getElementById('bizPassword');
+      const err = document.getElementById('pwError');
+      if (pw.value.length < 8) { err.classList.add('is-visible'); return; }
+      err.classList.remove('is-visible');
+      // Routes straight into Choose Business Category, never an empty dashboard (PRD Sec. 8.1)
+      window.location.href = 'choose-category.html';
+    }
+  </script>
+  <script src="js/forms.js"></script>
+</body>
+
+</html>

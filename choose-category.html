@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>StockEx — What kind of business do you run?</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/preferences.js" defer></script>
+</head>
+
+<body>
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <symbol id="icon-store" viewBox="0 0 24 24">
+        <path d="M3 9l1-5h16l1 5" stroke-width="2" stroke-linejoin="round" />
+        <path d="M4 9v11h16V9" stroke-width="2" stroke-linejoin="round" />
+        <path d="M4 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-pill" viewBox="0 0 24 24">
+        <rect x="4" y="4" width="16" height="16" rx="8" stroke-width="2" />
+        <path d="M4 12h16" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-bread" viewBox="0 0 24 24">
+        <path d="M4 12a8 5 0 0 1 16 0v6H4v-6z" stroke-width="2" stroke-linejoin="round" />
+        <path d="M9 12v4M15 12v4" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-cart" viewBox="0 0 24 24">
+        <circle cx="9" cy="20" r="1" fill="currentColor" stroke="none" />
+        <circle cx="17" cy="20" r="1" fill="currentColor" stroke="none" />
+        <path d="M3 4h2l2.4 11.5a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-utensils" viewBox="0 0 24 24">
+        <path d="M7 3v7M4 3v7a2 2 0 0 0 4 0V3M17 3c-2 1-3 3-3 6 0 2 1 3 3 3v9" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-sparkle" viewBox="0 0 24 24">
+        <path d="M12 3v6M12 15v6M3 12h6M15 12h6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-more" viewBox="0 0 24 24">
+        <circle cx="6" cy="12" r="1.4" fill="currentColor" stroke="none" />
+        <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+        <circle cx="18" cy="12" r="1.4" fill="currentColor" stroke="none" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="auth-page">
+    <div class="auth-page__body" style="padding-top:48px;">
+      <h1 class="auth-page__title">What kind of business do you run?</h1>
+      <p class="auth-page__subtitle">This just sets sensible category defaults for you later — it won't lock you into
+        anything.</p>
+
+      <div class="category-grid" id="categoryGrid">
+        <button class="category-card" data-category="grocery" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-store" />
+          </svg><span class="category-card__label">Grocery</span></button>
+        <button class="category-card" data-category="pharmacy" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-pill" />
+          </svg><span class="category-card__label">Pharmacy</span></button>
+        <button class="category-card" data-category="bakery" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-bread" />
+          </svg><span class="category-card__label">Bakery</span></button>
+        <button class="category-card" data-category="supermarket" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-cart" />
+          </svg><span class="category-card__label">Supermarket</span></button>
+        <button class="category-card" data-category="restaurant" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-utensils" />
+          </svg><span class="category-card__label">Restaurant</span></button>
+        <button class="category-card" data-category="cosmetics" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-sparkle" />
+          </svg><span class="category-card__label">Cosmetics</span></button>
+        <button class="category-card" data-category="general" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-store" />
+          </svg><span class="category-card__label">General Retail</span></button>
+        <button class="category-card" data-category="other" onclick="selectCategory(this)"><svg class="icon"
+            viewBox="0 0 24 24">
+            <use href="#icon-more" />
+          </svg><span class="category-card__label">Other</span></button>
+      </div>
+
+      <button class="btn btn-primary btn--full" id="continueBtn" disabled
+        onclick="window.location.href='dashboard.html'">Continue</button>
+    </div>
+  </div>
+
+  <script>
+    function selectCategory(el) {
+      document.querySelectorAll('.category-card').forEach(c => c.classList.remove('is-selected'));
+      el.classList.add('is-selected');
+      document.getElementById('continueBtn').disabled = false;
+    }
+  </script>
+</body>
+
+</html>

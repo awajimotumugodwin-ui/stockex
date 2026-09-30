@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>StockEx — Settings</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/preferences.js" defer></script>
+  <script src="js/camera.js" defer></script>
+</head>
+
+<body>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5 9.5V21h5v-6h4v6h5V9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-box" viewBox="0 0 24 24">
+        <rect x="3" y="7" width="18" height="13" rx="1.5" stroke-width="2" />
+        <path d="M3 7l2.5-4h13L21 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9 11h6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-plus-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-person" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" stroke-width="2" />
+        <path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6L6 18" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-log-out" viewBox="0 0 24 24">
+        <path d="M15 17l5-5-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M20 12H9" stroke-width="2" stroke-linecap="round" />
+        <path d="M9 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="app-header">
+    <div class="app-header__row">
+      <div class="app-header__brand">
+        <img src="assets/logo-lockup.svg" alt="StockEx" class="app-header__logo">
+      </div>
+      <button class="account-button" aria-label="Account"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg></button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <h1 class="page-title" style="margin-bottom:20px;">Settings</h1>
+
+    <section class="settings-section">
+      <div class="settings-section__title">Business Info</div>
+      <div class="field">
+        <label for="setBizName">Business name</label>
+        <input type="text" id="setBizName" value="Adeyemi Stores" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="setBizCategoryTrigger">Category</label>
+        <div class="choice-picker" id="businessCategoryPicker">
+          <input type="hidden" id="setBizCategory" name="businessCategory" value="Grocery">
+          <button type="button" class="choice-picker__trigger" id="setBizCategoryTrigger" aria-haspopup="listbox"
+            aria-expanded="false" aria-controls="businessCategoryMenu">
+            <span id="businessCategoryLabel">Grocery</span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#icon-chevron-down" />
+            </svg>
+          </button>
+          <div class="choice-picker__menu" id="businessCategoryMenu" role="listbox" aria-label="Business categories" hidden>
+            <button type="button" class="choice-picker__other" id="showCustomBusinessCategory">Other</button>
+            <div class="choice-picker__custom" id="customBusinessCategoryForm" hidden>
+              <label class="visually-hidden" for="customBusinessCategoryName">New business category</label>
+              <input type="text" id="customBusinessCategoryName" maxlength="32" placeholder="Add a category">
+              <button type="button" class="btn btn-primary" id="saveBusinessCategory">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:8px;">
+        <div class="field__label-row"><label for="setBizLocation">Location</label><span class="field__hint"
+            style="color:var(--color-text-muted);">Optional</span></div>
+        <input type="text" id="setBizLocation" placeholder="e.g., Ibadan, Oyo State" autocomplete="address-level2">
+      </div>
+      <button class="btn btn-secondary" style="margin-top:8px;" onclick="alert('Business info saved.')">Save business
+        info</button>
+    </section>
+
+    <section class="settings-section">
+      <div class="settings-section__title">Account</div>
+      <div class="field">
+        <label for="setEmail">Email</label>
+        <input type="email" id="setEmail" value="owner@adeyemistores.com" autocomplete="email">
+      </div>
+      <div class="field" style="margin-bottom:8px;">
+        <label for="setPassword">New password</label>
+        <div class="password-field">
+          <input type="password" id="setPassword" placeholder="Leave blank to keep current password" autocomplete="new-password">
+          <button type="button" class="password-toggle" aria-controls="setPassword" aria-pressed="false">Show</button>
+        </div>
+      </div>
+      <button class="btn btn-secondary" style="margin-top:8px;" onclick="alert('Account details saved.')">Save account
+        details</button>
+    </section>
+
+    <section class="settings-section">
+      <div class="settings-section__title">Notifications</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row__label">Email alerts</div>
+          <div class="settings-row__desc">Get an email when stock turns Urgent or Expired</div>
+        </div>
+        <label class="toggle"><input type="checkbox" checked><span class="toggle__track"></span></label>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row__label">Push alerts</div>
+          <div class="settings-row__desc">Get a push notification on this device</div>
+        </div>
+        <label class="toggle"><input type="checkbox"><span class="toggle__track"></span></label>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <div class="settings-section__title">Appearance</div>
+      <div class="settings-row">
+        <div class="settings-row__label">Dark mode</div>
+        <label class="toggle">
+          <input type="checkbox" id="themeToggle" aria-label="Dark mode">
+          <span class="toggle__track"></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <div class="settings-section__title">Expiry Thresholds</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:12px;">Changing these affects status
+        everywhere in the app.</p>
+      <div class="threshold-row">
+        <span class="threshold-row__label"><span class="badge badge--safe" style="padding:2px 8px;">Safe</span> more
+          than</span>
+        <input type="number" value="30" autocomplete="off"> <span style="font-size:12px;color:var(--color-text-secondary);">days</span>
+      </div>
+      <div class="threshold-row">
+        <span class="threshold-row__label"><span class="badge badge--expiring">Expiring soon</span> up to</span>
+        <input type="number" value="30" autocomplete="off"> <span style="font-size:12px;color:var(--color-text-secondary);">days</span>
+      </div>
+      <div class="threshold-row">
+        <span class="threshold-row__label"><span class="badge badge--urgent">Urgent</span> up to</span>
+        <input type="number" value="7" autocomplete="off"> <span style="font-size:12px;color:var(--color-text-secondary);">days</span>
+      </div>
+      <button class="btn btn-secondary" style="margin-top:12px;"
+        onclick="alert('Thresholds saved. Every status display will recalculate against these.')">Save
+        thresholds</button>
+    </section>
+
+    <button class="btn btn-secondary btn--full" style="color:var(--status-today-text);"
+      onclick="toggleSheet('logoutSheet')">
+      <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+        <use href="#icon-log-out" />
+      </svg>
+      Log out
+    </button>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav__row">
+      <a class="bottom-nav__item" href="dashboard.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-home" />
+        </svg>Home</a>
+      <a class="bottom-nav__item" href="inventory.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-box" />
+        </svg>Stock</a>
+      <a class="bottom-nav__item" href="add-product.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-plus-circle" />
+        </svg>Add</a>
+      <a class="bottom-nav__item is-active" href="settings.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg>Account</a>
+    </div>
+  </nav>
+
+  <div class="sheet-overlay" id="logoutSheet" onclick="if(event.target===this) toggleSheet('logoutSheet')">
+    <div class="sheet">
+      <div class="sheet__head">
+        <strong>Log out of StockEx?</strong>
+        <button class="sheet__close" onclick="toggleSheet('logoutSheet')"><svg class="icon" viewBox="0 0 24 24">
+            <use href="#icon-x" />
+          </svg></button>
+      </div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:16px;">You'll need to log in again to
+        access your inventory.</p>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary btn--flex1" onclick="toggleSheet('logoutSheet')">Cancel</button>
+        <button class="btn btn-primary btn--flex1" onclick="window.location.href='index.html'">Log out</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleSheet(id) { document.getElementById(id).classList.toggle('is-open'); }
+
+    const businessCategorySelect = document.getElementById('setBizCategory');
+    const businessCategoryMenu = document.getElementById('businessCategoryMenu');
+    const businessCategoryTrigger = document.getElementById('setBizCategoryTrigger');
+    const businessCategoryForm = document.getElementById('customBusinessCategoryForm');
+    const businessCategoryInput = document.getElementById('customBusinessCategoryName');
+    const businessCategoryStorageKey = 'stockex.businessCategories';
+    const hiddenBusinessCategoriesKey = 'stockex.hiddenBusinessCategories';
+    const defaultBusinessCategories = [
+      'Grocery', 'Pharmacy', 'Bakery', 'Supermarket', 'Restaurant', 'Cosmetics', 'General Retail'
+    ];
+    let customBusinessCategories = [];
+    let hiddenBusinessCategories = [];
+
+    try {
+      const savedCategories = JSON.parse(localStorage.getItem(businessCategoryStorageKey) || '[]');
+      if (Array.isArray(savedCategories)) {
+        customBusinessCategories = savedCategories.filter(category => typeof category === 'string');
+      }
+    } catch {
+      customBusinessCategories = [];
+    }
+
+    try {
+      const savedHiddenCategories = JSON.parse(localStorage.getItem(hiddenBusinessCategoriesKey) || '[]');
+      if (Array.isArray(savedHiddenCategories)) hiddenBusinessCategories = savedHiddenCategories;
+    } catch {
+      hiddenBusinessCategories = [];
+    }
+
+    function renderBusinessCategories() {
+      businessCategoryMenu.querySelectorAll('[data-business-category-row]').forEach(row => row.remove());
+      const otherButton = document.getElementById('showCustomBusinessCategory');
+      [...defaultBusinessCategories, ...customBusinessCategories]
+        .filter(category => !hiddenBusinessCategories.includes(category))
+        .forEach(category => {
+          const row = document.createElement('div');
+          row.className = 'choice-option-row';
+          row.dataset.businessCategoryRow = '';
+          const option = document.createElement('button');
+          option.type = 'button';
+          option.className = 'choice-picker__option';
+          option.setAttribute('role', 'option');
+          option.textContent = category;
+          option.addEventListener('click', () => selectBusinessCategory(category));
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'choice-picker__remove';
+          remove.setAttribute('aria-label', 'Remove business category ' + category);
+          remove.title = 'Remove category';
+          remove.textContent = '×';
+          remove.addEventListener('click', () => removeBusinessCategory(category));
+          row.append(option, remove);
+          businessCategoryMenu.insertBefore(row, otherButton);
+      });
+    }
+
+    function selectBusinessCategory(category) {
+      businessCategorySelect.value = category || '';
+      document.getElementById('businessCategoryLabel').textContent = category || 'Choose a category';
+      businessCategoryMenu.hidden = true;
+      businessCategoryTrigger.setAttribute('aria-expanded', 'false');
+      businessCategoryForm.hidden = true;
+    }
+
+    function removeBusinessCategory(category) {
+      if (!window.confirm('Remove the business category "' + category + '"?')) return;
+
+      if (customBusinessCategories.includes(category)) {
+        customBusinessCategories = customBusinessCategories.filter(item => item !== category);
+        try {
+          localStorage.setItem(businessCategoryStorageKey, JSON.stringify(customBusinessCategories));
+        } catch {
+          // Keep the category removed for this page if storage is unavailable.
+        }
+      } else {
+        hiddenBusinessCategories.push(category);
+        try {
+          localStorage.setItem(hiddenBusinessCategoriesKey, JSON.stringify(hiddenBusinessCategories));
+        } catch {
+          // Keep the category hidden for this page if storage is unavailable.
+        }
+      }
+
+      if (businessCategorySelect.value === category) {
+        selectBusinessCategory(
+          [...defaultBusinessCategories, ...customBusinessCategories]
+            .find(item => !hiddenBusinessCategories.includes(item)) || ''
+        );
+      }
+      renderBusinessCategories();
+    }
+
+    function addBusinessCategory() {
+      const category = businessCategoryInput.value.trim();
+      if (!category) {
+        businessCategoryInput.focus();
+        return;
+      }
+
+      const existingCategory = [...defaultBusinessCategories, ...customBusinessCategories]
+        .find(item => item.toLowerCase() === category.toLowerCase());
+      if (existingCategory) {
+        const selected = existingCategory;
+        hiddenBusinessCategories = hiddenBusinessCategories.filter(item => item !== selected);
+        try {
+          localStorage.setItem(hiddenBusinessCategoriesKey, JSON.stringify(hiddenBusinessCategories));
+        } catch {
+          // Keep the category visible for this page if storage is unavailable.
+        }
+        renderBusinessCategories();
+        selectBusinessCategory(selected);
+      } else {
+        customBusinessCategories.push(category);
+        try {
+          localStorage.setItem(businessCategoryStorageKey, JSON.stringify(customBusinessCategories));
+        } catch {
+          // Keep the category available for this page even if storage is unavailable.
+        }
+        renderBusinessCategories();
+        selectBusinessCategory(category);
+      }
+
+      businessCategoryInput.value = '';
+    }
+
+    businessCategoryTrigger.addEventListener('click', () => {
+      businessCategoryMenu.hidden = !businessCategoryMenu.hidden;
+      businessCategoryTrigger.setAttribute('aria-expanded', String(!businessCategoryMenu.hidden));
+    });
+    document.getElementById('showCustomBusinessCategory').addEventListener('click', () => {
+      businessCategoryForm.hidden = false;
+      businessCategoryInput.focus();
+    });
+    document.addEventListener('click', event => {
+      if (!document.getElementById('businessCategoryPicker').contains(event.target)) {
+        businessCategoryMenu.hidden = true;
+        businessCategoryTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !businessCategoryMenu.hidden) {
+        businessCategoryMenu.hidden = true;
+        businessCategoryTrigger.setAttribute('aria-expanded', 'false');
+        businessCategoryTrigger.focus();
+      }
+    });
+    document.getElementById('saveBusinessCategory').addEventListener('click', addBusinessCategory);
+    businessCategoryInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        addBusinessCategory();
+      }
+    });
+    renderBusinessCategories();
+    if (hiddenBusinessCategories.includes(businessCategorySelect.value)) {
+      selectBusinessCategory(
+        [...defaultBusinessCategories, ...customBusinessCategories]
+          .find(item => !hiddenBusinessCategories.includes(item)) || ''
+      );
+    }
+  </script>
+  <script src="js/forms.js"></script>
+
+</body>
+
+</html>

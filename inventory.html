@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>StockEx — Inventory</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/preferences.js" defer></script>
+  <script src="js/camera.js" defer></script>
+</head>
+
+<body>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5 9.5V21h5v-6h4v6h5V9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-box" viewBox="0 0 24 24">
+        <rect x="3" y="7" width="18" height="13" rx="1.5" stroke-width="2" />
+        <path d="M3 7l2.5-4h13L21 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9 11h6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-plus-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-person" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" stroke-width="2" />
+        <path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 7.5V12l3 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-alert-triangle" viewBox="0 0 24 24">
+        <path d="M12 3 2 21h20L12 3z" stroke-width="2" stroke-linejoin="round" />
+        <path d="M12 9.5v4.2" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-alert-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 7.5v5" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="16" r="0.9" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-x-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M9 9l6 6M15 9l-6 6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7" stroke-width="2" />
+        <path d="M21 21l-4.3-4.3" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-barcode" viewBox="0 0 24 24">
+        <path d="M4 4v16M8 4v16M11 4v16M13.5 4v16M17 4v16M20 4v16" stroke-width="1.6" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-filter" viewBox="0 0 24 24">
+        <path d="M4 6h16M7 12h10M10 18h4" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 24 24">
+        <path d="M12 20h9" stroke-width="2" stroke-linecap="round" />
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" stroke-width="2" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="M4 12.5l5 5L20 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-refresh" viewBox="0 0 24 24">
+        <path d="M4 4v6h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M20 20v-6h-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5 14a8 8 0 0 0 13.7 4.2M19 10A8 8 0 0 0 5.3 5.8" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6L6 18" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="app-header">
+    <div class="app-header__row">
+      <div class="app-header__brand">
+        <img src="assets/logo-lockup.svg" alt="StockEx" class="app-header__logo">
+        <div class="app-header__divider"></div>
+        <div class="app-header__meta">
+          <span class="app-header__business">Adeyemi Stores</span>
+          <span class="app-header__sync"><span class="dot"></span>All synced</span>
+        </div>
+      </div>
+      <button class="account-button" aria-label="Account"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg></button>
+    </div>
+    <!-- Small, calm, non-blocking sync banner — never a full-screen or blocking state (Sec. 10) -->
+    <div class="sync-banner">
+      <span class="sync-banner__status"><span class="sync-banner__dot"></span>2 queued updates</span>
+      <button class="sync-banner__action" onclick="alert('Syncing queued updates…')">Sync now</button>
+    </div>
+  </header>
+
+  <main class="app-main app-main--with-banner app-main--inventory">
+
+    <div class="search-bar">
+      <svg class="icon icon-search" viewBox="0 0 24 24">
+        <use href="#icon-search" />
+      </svg>
+      <input type="search" id="searchInput" placeholder="Search by product name, barcode…">
+      <button class="search-bar__scan" aria-label="Scan barcode" onclick="openInventoryScanner()">
+        <svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-barcode" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter-select" id="categoryBtn" onclick="toggleSheet('categorySheet')">
+        <svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;">
+          <use href="#icon-filter" />
+        </svg>
+        <span id="categoryLabel">All Categories</span>
+        <svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;margin-left:auto;">
+          <use href="#icon-chevron-down" />
+        </svg>
+      </button>
+      <span class="item-count" id="inventoryItemCount">142 items</span>
+    </div>
+
+    <div class="chip-row" id="chipRow">
+      <button class="chip is-active" onclick="applyStatusFilter('all', this)">All</button>
+      <button class="chip" onclick="applyStatusFilter('today', this)"><span class="chip__dot"
+          style="background:var(--status-today-text)"></span>Expires today</button>
+      <button class="chip" onclick="applyStatusFilter('urgent', this)"><span class="chip__dot"
+          style="background:var(--status-urgent-text)"></span>Urgent (1–7d)</button>
+      <button class="chip" onclick="applyStatusFilter('expiring', this)"><span class="chip__dot"
+          style="background:var(--status-expiring-text)"></span>Expiring soon (8–30d)</button>
+      <button class="chip" onclick="applyStatusFilter('expired', this)"><span class="chip__dot"
+          style="background:var(--status-expired-text)"></span>Expired (&lt;0d)</button>
+      <button class="chip" onclick="applyStatusFilter('safe', this)"><span class="chip__dot"
+          style="background:#9CA3AF"></span>Safe (&gt;30d)</button>
+    </div>
+
+    <div id="inventoryList">
+
+      <article class="item-card" data-category="dairy" data-status="today">
+        <div class="item-card__top">
+          <div>
+            <div class="item-card__name">Whole Milk 1L</div>
+            <div class="item-card__meta">Barcode: 0492810 · Shelf D-02</div>
+          </div>
+          <span class="badge badge--today"><svg class="icon" viewBox="0 0 24 24">
+              <use href="#icon-alert-circle" />
+            </svg>Expires today</span>
+        </div>
+        <div class="item-card__tags">
+          <span class="tag-pill">Dairy</span><span>·</span><span><strong>14</strong> units</span><span>·</span>
+          <span style="color:var(--status-today-text);font-weight:600;">Today (0d remaining)</span>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-primary btn--flex1" onclick="openSoldModal('Whole Milk 1L', 14)"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-check" />
+            </svg>Mark Sold</button>
+          <button class="btn btn-secondary btn--flex1" onclick="alert('Restock: Whole Milk 1L')"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-refresh" />
+            </svg>Restock</button>
+          <button class="btn btn-secondary" onclick="alert('Edit: Whole Milk 1L')"><svg class="icon" viewBox="0 0 24 24"
+              style="width:16px;height:16px;">
+              <use href="#icon-edit" />
+            </svg>Edit</button>
+        </div>
+      </article>
+
+      <article class="item-card" data-category="bakery" data-status="urgent">
+        <div class="item-card__top">
+          <div>
+            <div class="item-card__name">Sliced Brioche Bread</div>
+            <div class="item-card__meta">Barcode: 0881923 · Rack B-01</div>
+          </div>
+          <span class="badge badge--urgent"><svg class="icon" viewBox="0 0 24 24">
+              <use href="#icon-alert-triangle" />
+            </svg>Urgent</span>
+        </div>
+        <div class="item-card__tags">
+          <span class="tag-pill">Bakery</span><span>·</span><span><strong>8</strong> units</span><span>·</span>
+          <span style="color:var(--status-urgent-text);font-weight:600;">Oct 26 (2d remaining)</span>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-primary btn--flex1" onclick="openSoldModal('Sliced Brioche Bread', 8)"><svg
+              class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-check" />
+            </svg>Mark Sold</button>
+          <button class="btn btn-secondary btn--flex1" onclick="alert('Restock: Sliced Brioche Bread')"><svg
+              class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-refresh" />
+            </svg>Restock</button>
+          <button class="btn btn-secondary" onclick="alert('Edit: Sliced Brioche Bread')"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-edit" />
+            </svg>Edit</button>
+        </div>
+      </article>
+
+      <article class="item-card" data-category="pharmacy" data-status="expiring">
+        <div class="item-card__top">
+          <div>
+            <div class="item-card__name">Paracetamol 500mg 20s</div>
+            <div class="item-card__meta">Barcode: 9410452 · Cabinet A-3</div>
+          </div>
+          <span class="badge badge--expiring"><svg class="icon" viewBox="0 0 24 24">
+              <use href="#icon-clock" />
+            </svg>Expiring soon</span>
+        </div>
+        <div class="item-card__tags">
+          <span class="tag-pill">Pharmacy</span><span>·</span><span><strong>45</strong> packs</span><span>·</span>
+          <span style="color:var(--status-expiring-text);font-weight:600;">Nov 14 (21d remaining)</span>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-primary btn--flex1" onclick="openSoldModal('Paracetamol 500mg 20s', 45)"><svg
+              class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-check" />
+            </svg>Mark Sold</button>
+          <button class="btn btn-secondary btn--flex1" onclick="alert('Restock: Paracetamol 500mg 20s')"><svg
+              class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-refresh" />
+            </svg>Restock</button>
+          <button class="btn btn-secondary" onclick="alert('Edit: Paracetamol 500mg 20s')"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-edit" />
+            </svg>Edit</button>
+        </div>
+      </article>
+
+      <article class="item-card" data-category="bakery" data-status="expired">
+        <div class="item-card__top">
+          <div>
+            <div class="item-card__name">Golden Baguettes 2pk</div>
+            <div class="item-card__meta">Barcode: 0881944 · Bread Stand</div>
+          </div>
+          <span class="badge badge--expired"><svg class="icon" viewBox="0 0 24 24">
+              <use href="#icon-x-circle" />
+            </svg>Expired</span>
+        </div>
+        <div class="item-card__tags">
+          <span class="tag-pill">Bakery</span><span>·</span><span
+            style="color:var(--status-expired-text);font-weight:600;">0 units (Sold out)</span><span>·</span>
+          <span style="color:var(--status-expired-text);font-weight:600;">Oct 22 (2d ago)</span>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-secondary btn--flex1" disabled><svg class="icon" viewBox="0 0 24 24"
+              style="width:16px;height:16px;">
+              <use href="#icon-check" />
+            </svg>Mark Sold</button>
+          <button class="btn btn-primary btn--flex1" onclick="alert('Restock: Golden Baguettes 2pk')"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-refresh" />
+            </svg>Restock</button>
+          <button class="btn btn-secondary" onclick="alert('Edit: Golden Baguettes 2pk')"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-edit" />
+            </svg>Edit</button>
+        </div>
+      </article>
+
+      <article class="item-card" data-category="groceries" data-status="safe">
+        <div class="item-card__top">
+          <div>
+            <div class="item-card__name">Jasmine Rice 5kg</div>
+            <div class="item-card__meta">Barcode: 7729103 · Aisle 3 Shelf A</div>
+          </div>
+          <span class="badge badge--safe">Safe (&gt;30d)</span>
+        </div>
+        <div class="item-card__tags">
+          <span class="tag-pill">Groceries</span><span>·</span><span><strong>35</strong> bags</span><span>·</span>
+          <span>Jan 15, 2027 (83d remaining)</span>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-primary btn--flex1" onclick="openSoldModal('Jasmine Rice 5kg', 35)"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-check" />
+            </svg>Mark Sold</button>
+          <button class="btn btn-secondary btn--flex1" onclick="alert('Restock: Jasmine Rice 5kg')"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-refresh" />
+            </svg>Restock</button>
+          <button class="btn btn-secondary" onclick="alert('Edit: Jasmine Rice 5kg')"><svg class="icon"
+              viewBox="0 0 24 24" style="width:16px;height:16px;">
+              <use href="#icon-edit" />
+            </svg>Edit</button>
+        </div>
+      </article>
+
+    </div>
+
+  </main>
+
+  <div class="fab-wrap">
+    <a class="fab" href="add-product.html">
+      <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+        <use href="#icon-plus" />
+      </svg>
+      Add Product
+    </a>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav__row">
+      <a class="bottom-nav__item" href="dashboard.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-home" />
+        </svg>Home</a>
+      <a class="bottom-nav__item is-active" href="inventory.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-box" />
+        </svg>Stock</a>
+      <a class="bottom-nav__item" href="add-product.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-plus-circle" />
+        </svg>Add</a>
+      <a class="bottom-nav__item" href="settings.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg>Account</a>
+    </div>
+  </nav>
+
+  <!-- Category bottom sheet -->
+  <div class="sheet-overlay" id="categorySheet" onclick="if(event.target===this) toggleSheet('categorySheet')">
+    <div class="sheet">
+      <div class="sheet__head">
+        <strong>Select Category</strong>
+        <button class="sheet__close" onclick="toggleSheet('categorySheet')"><svg class="icon" viewBox="0 0 24 24">
+            <use href="#icon-x" />
+          </svg></button>
+      </div>
+      <button class="sheet-item" onclick="selectCategory('All Categories','all')"><span>All Categories</span><span
+          style="color:var(--color-text-muted)">142</span></button>
+        <div id="stockCategoryOptions"></div>
+      <button type="button" class="sheet-item sheet-item--action" id="showCustomCategory">Other</button>
+      <div class="sheet-custom-form" id="customCategoryForm" hidden>
+        <label class="visually-hidden" for="customCategoryName">New category name</label>
+        <input type="text" id="customCategoryName" maxlength="32" placeholder="Add a category">
+        <button type="button" class="btn btn-primary" id="saveCustomCategory">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Mark Sold sheet -->
+  <div class="sheet-overlay" id="soldSheet" onclick="if(event.target===this) toggleSheet('soldSheet')">
+    <div class="sheet">
+      <div class="sheet__head">
+        <strong id="soldProductName">Product</strong>
+        <button class="sheet__close" onclick="toggleSheet('soldSheet')"><svg class="icon" viewBox="0 0 24 24">
+            <use href="#icon-x" />
+          </svg></button>
+      </div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:8px;">Quantity sold</p>
+      <div class="stepper" style="justify-content:center;gap:16px;margin-bottom:8px;">
+        <button type="button" aria-label="Decrease quantity" onclick="adjustSold(-1)">−</button>
+        <input id="soldQty" type="number" min="1" step="1" inputmode="numeric" value="1" aria-label="Quantity sold"
+          style="border:none;box-shadow:none;font-size:22px;">
+        <button type="button" aria-label="Increase quantity" onclick="adjustSold(1)">+</button>
+      </div>
+      <p style="text-align:center;font-size:12px;color:var(--color-text-secondary);margin-bottom:16px;">Remaining:
+        <strong id="soldRemaining" style="color:var(--color-text-primary)"></strong> units
+      </p>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary btn--flex1" onclick="toggleSheet('soldSheet')">Cancel</button>
+        <button class="btn btn-primary btn--flex1" onclick="confirmSold()">Confirm Sale</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const deletedStockItemsKey = 'stockex.deletedStockItems';
+    let deletedStockItems = [];
+
+    try {
+      const storedDeletedItems = JSON.parse(localStorage.getItem(deletedStockItemsKey) || '[]');
+      if (Array.isArray(storedDeletedItems)) deletedStockItems = storedDeletedItems;
+    } catch {
+      deletedStockItems = [];
+    }
+
+    function updateInventoryItemCount() {
+      document.getElementById('inventoryItemCount').textContent =
+        Math.max(0, 142 - deletedStockItems.length) + ' items';
+    }
+
+    function deleteStockItem(card) {
+      const productName = card.querySelector('.item-card__name').textContent.trim();
+      if (!window.confirm('Delete "' + productName + '" from inventory? This cannot be undone.')) return;
+
+      if (!deletedStockItems.includes(card.dataset.productId)) {
+        deletedStockItems.push(card.dataset.productId);
+      }
+      try {
+        localStorage.setItem(deletedStockItemsKey, JSON.stringify(deletedStockItems));
+      } catch {
+        // Keep the item removed for this page if storage is unavailable.
+      }
+      card.remove();
+      updateInventoryItemCount();
+    }
+
+    document.querySelectorAll('#inventoryList .item-card').forEach(card => {
+      const productName = card.querySelector('.item-card__name').textContent.trim();
+      card.dataset.productId = productName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'btn btn-danger';
+      deleteButton.setAttribute('aria-label', 'Delete ' + productName + ' from stock');
+      deleteButton.innerHTML = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-x-circle"></use></svg>Delete';
+      deleteButton.addEventListener('click', () => deleteStockItem(card));
+      card.querySelector('.row-actions').appendChild(deleteButton);
+      if (deletedStockItems.includes(card.dataset.productId)) card.remove();
+    });
+    updateInventoryItemCount();
+
+    function toggleSheet(id) {
+      document.getElementById(id).classList.toggle('is-open');
+    }
+
+    function openInventoryScanner() {
+      window.StockExCamera.open({
+        mode: 'scan',
+        onBarcode: value => {
+          const search = document.getElementById('searchInput');
+          search.value = value;
+          search.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+    }
+
+    function applyStatusFilter(status, el) {
+      document.querySelectorAll('#chipRow .chip').forEach(c => c.classList.remove('is-active'));
+      el.classList.add('is-active');
+      document.querySelectorAll('#inventoryList .item-card').forEach(card => {
+        card.style.display = (status === 'all' || card.dataset.status === status) ? 'flex' : 'none';
+      });
+    }
+
+    function selectCategory(label, key) {
+      document.getElementById('categoryLabel').textContent = label;
+      toggleSheet('categorySheet');
+      document.querySelectorAll('#inventoryList .item-card').forEach(card => {
+        card.style.display = (key === 'all' || card.dataset.category === key) ? 'flex' : 'none';
+      });
+    }
+
+    const categoryStorageKey = 'stockex.customCategories';
+    const builtInCategories = [
+      { label: 'Dairy', key: 'dairy', count: '38' },
+      { label: 'Bakery', key: 'bakery', count: '24' },
+      { label: 'Pharmacy', key: 'pharmacy', count: '51' },
+      { label: 'Groceries', key: 'groceries', count: '29' }
+    ];
+    const hiddenStockCategoriesKey = 'stockex.hiddenStockCategories';
+    let customCategories = [];
+    let hiddenStockCategories = [];
+
+    try {
+      const savedCategories = JSON.parse(localStorage.getItem(categoryStorageKey) || '[]');
+      if (Array.isArray(savedCategories)) {
+        customCategories = savedCategories.filter(category =>
+          category && typeof category.label === 'string' && typeof category.key === 'string'
+        );
+      }
+    } catch {
+      customCategories = [];
+    }
+
+    try {
+      const savedHiddenCategories = JSON.parse(localStorage.getItem(hiddenStockCategoriesKey) || '[]');
+      if (Array.isArray(savedHiddenCategories)) hiddenStockCategories = savedHiddenCategories;
+    } catch {
+      hiddenStockCategories = [];
+    }
+
+    function renderStockCategories() {
+      const container = document.getElementById('stockCategoryOptions');
+      container.replaceChildren();
+      [...builtInCategories, ...customCategories]
+        .filter(category => !hiddenStockCategories.includes(category.key))
+        .forEach(category => {
+          const row = document.createElement('div');
+          row.className = 'sheet-item-row';
+          const option = document.createElement('button');
+          option.type = 'button';
+          option.className = 'sheet-item';
+          const label = document.createElement('span');
+          label.textContent = category.label;
+          const count = document.createElement('span');
+          count.textContent = category.count || '0';
+          count.style.color = 'var(--color-text-muted)';
+          option.append(label, count);
+          option.addEventListener('click', () => selectCategory(category.label, category.key));
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'sheet-item__remove';
+          remove.setAttribute('aria-label', 'Remove category ' + category.label);
+          remove.title = 'Remove category';
+          remove.textContent = '×';
+          remove.addEventListener('click', () => removeStockCategory(category));
+          row.append(option, remove);
+          container.appendChild(row);
+      });
+    }
+
+    function removeStockCategory(category) {
+      if (!window.confirm('Remove the category "' + category.label + '"?')) return;
+
+      if (customCategories.some(item => item.key === category.key)) {
+        customCategories = customCategories.filter(item => item.key !== category.key);
+        try {
+          localStorage.setItem(categoryStorageKey, JSON.stringify(customCategories));
+        } catch {
+          // Keep the category removed for this page if storage is unavailable.
+        }
+      } else {
+        hiddenStockCategories.push(category.key);
+        try {
+          localStorage.setItem(hiddenStockCategoriesKey, JSON.stringify(hiddenStockCategories));
+        } catch {
+          // Keep the category hidden for this page if storage is unavailable.
+        }
+      }
+
+      if (document.getElementById('categoryLabel').textContent === category.label) {
+        selectCategory('All Categories', 'all');
+      }
+      renderStockCategories();
+    }
+
+    function addCustomCategory() {
+      const input = document.getElementById('customCategoryName');
+      const label = input.value.trim();
+      if (!label) {
+        input.focus();
+        return;
+      }
+
+      const existing = [...builtInCategories, ...customCategories].find(category =>
+        category.label.toLowerCase() === label.toLowerCase()
+      );
+      if (existing) {
+        if (hiddenStockCategories.includes(existing.key)) {
+          hiddenStockCategories = hiddenStockCategories.filter(key => key !== existing.key);
+          try {
+            localStorage.setItem(hiddenStockCategoriesKey, JSON.stringify(hiddenStockCategories));
+          } catch {
+            // Keep the category visible for this page if storage is unavailable.
+          }
+          renderStockCategories();
+        }
+        input.value = '';
+        document.getElementById('customCategoryForm').hidden = true;
+        selectCategory(existing.label, existing.key);
+        return;
+      }
+
+      const baseKey = label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'other';
+      let key = baseKey;
+      let suffix = 2;
+      const usedKeys = new Set([
+        'all',
+        ...builtInCategories.map(category => category.key),
+        ...customCategories.map(category => category.key)
+      ]);
+      while (usedKeys.has(key)) key = baseKey + '-' + suffix++;
+
+      const category = { label, key };
+      customCategories.push(category);
+      try {
+        localStorage.setItem(categoryStorageKey, JSON.stringify(customCategories));
+      } catch {
+        // Keep the category available for this page even if storage is unavailable.
+      }
+
+      renderStockCategories();
+      input.value = '';
+      document.getElementById('customCategoryForm').hidden = true;
+      selectCategory(category.label, category.key);
+    }
+
+    document.getElementById('showCustomCategory').addEventListener('click', () => {
+      document.getElementById('customCategoryForm').hidden = false;
+      document.getElementById('customCategoryName').focus();
+    });
+    document.getElementById('saveCustomCategory').addEventListener('click', addCustomCategory);
+    document.getElementById('customCategoryName').addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        addCustomCategory();
+      }
+    });
+    renderStockCategories();
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      document.querySelectorAll('#inventoryList .item-card').forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(term) ? 'flex' : 'none';
+      });
+    });
+
+    let soldBase = 1, soldQty = 1;
+    function openSoldModal(name, units) {
+      soldBase = units; soldQty = 1;
+      document.getElementById('soldProductName').textContent = name;
+      const input = document.getElementById('soldQty');
+      input.min = '1';
+      input.max = String(soldBase);
+      input.value = soldQty;
+      updateSoldRemaining();
+      toggleSheet('soldSheet');
+    }
+
+    function updateSoldRemaining() {
+      document.getElementById('soldRemaining').textContent = soldBase - soldQty;
+    }
+
+    function syncSoldInput() {
+      const input = document.getElementById('soldQty');
+      if (input.value === '') return;
+      const quantity = Number(input.value);
+      if (!Number.isFinite(quantity)) return;
+      soldQty = Math.min(soldBase, Math.max(1, Math.floor(quantity)));
+      input.value = soldQty;
+      updateSoldRemaining();
+    }
+
+    document.getElementById('soldQty').addEventListener('input', syncSoldInput);
+    document.getElementById('soldQty').addEventListener('blur', () => {
+      const input = document.getElementById('soldQty');
+      if (input.value === '') input.value = soldQty;
+      syncSoldInput();
+    });
+
+    function adjustSold(delta) {
+      const next = soldQty + delta;
+      if (next >= 1 && next <= soldBase) {
+        soldQty = next;
+        document.getElementById('soldQty').value = soldQty;
+        updateSoldRemaining();
+      }
+    }
+    function confirmSold() {
+      syncSoldInput();
+      toggleSheet('soldSheet');
+      alert('Recorded ' + soldQty + ' unit(s) sold.');
+    }
+  </script>
+
+</body>
+
+</html>

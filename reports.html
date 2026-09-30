@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>StockEx — Reports</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/preferences.js" defer></script>
+  <script src="js/camera.js" defer></script>
+</head>
+
+<body>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+        <path d="M19 12H5M11 6l-6 6 6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-person" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" stroke-width="2" />
+        <path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5 9.5V21h5v-6h4v6h5V9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-box" viewBox="0 0 24 24">
+        <rect x="3" y="7" width="18" height="13" rx="1.5" stroke-width="2" />
+        <path d="M3 7l2.5-4h13L21 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9 11h6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-plus-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-check-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M8 12.5l2.7 2.7L16 9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-alert-triangle" viewBox="0 0 24 24">
+        <path d="M12 3 2 21h20L12 3z" stroke-width="2" stroke-linejoin="round" />
+        <path d="M12 9.5v4.2" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-x-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M9 9l6 6M15 9l-6 6" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-donut" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <circle cx="12" cy="12" r="4" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-bar-chart" viewBox="0 0 24 24">
+        <path d="M4 20V10M12 20V4M20 20v-7" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" stroke-width="2" />
+        <path d="M12 11v5" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="8" r="0.9" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-tag" viewBox="0 0 24 24">
+        <path d="M3 12V5a1 1 0 0 1 1-1h7l10 10-8 8L3 12z" stroke-width="2" stroke-linejoin="round" />
+        <circle cx="7.5" cy="7.5" r="1" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24">
+        <path d="M12 3v12" stroke-width="2" stroke-linecap="round" />
+        <path d="M7 10l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5 21h14" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="app-header">
+    <div class="app-header__row">
+      <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+        <a href="dashboard.html" aria-label="Back to Dashboard"
+          style="min-width:48px;min-height:48px;display:flex;align-items:center;justify-content:center;color:var(--color-text-primary);">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="#icon-arrow-left" />
+          </svg>
+        </a>
+        <span style="font-size:16px;font-weight:700;">Stock &amp; Expiry Reports</span>
+      </div>
+      <button class="account-button" aria-label="Account"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg></button>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <span
+        style="font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-text-secondary);">Reporting
+        Period</span>
+      <button class="range-select" onclick="alert('Range picker would open here.')">Last 30 Days <svg class="icon"
+          viewBox="0 0 24 24" style="width:14px;height:14px;">
+          <use href="#icon-chevron-down" />
+        </svg></button>
+    </div>
+
+    <!-- Total Units and Safe Stock stay neutral — color is reserved for the
+       two tiers that need attention (Sec. 11). This mirrors the Dashboard. -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-card__head">
+          <span class="stat-card__label">Total Units on Hand</span>
+          <svg class="icon stat-card__icon" viewBox="0 0 24 24">
+            <use href="#icon-box" />
+          </svg>
+        </div>
+        <div class="stat-card__value-row"><span class="stat-card__value">1,840</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__head">
+          <span class="stat-card__label">Safe Stock</span>
+          <svg class="icon stat-card__icon" viewBox="0 0 24 24">
+            <use href="#icon-check-circle" />
+          </svg>
+        </div>
+        <div class="stat-card__value-row"><span class="stat-card__value">1,620</span><span
+            class="stat-card__unit">&gt;30d</span></div>
+      </div>
+      <div class="stat-card stat-card--urgent">
+        <div class="stat-card__head">
+          <span class="stat-card__label">Urgent (1–7d)</span>
+          <svg class="icon stat-card__icon" viewBox="0 0 24 24">
+            <use href="#icon-alert-triangle" />
+          </svg>
+        </div>
+        <div class="stat-card__value-row"><span class="stat-card__value">38</span><span
+            class="stat-card__unit">units</span></div>
+      </div>
+      <div class="stat-card stat-card--expired">
+        <div class="stat-card__head">
+          <span class="stat-card__label">Expired (&lt;0d)</span>
+          <svg class="icon stat-card__icon" viewBox="0 0 24 24">
+            <use href="#icon-x-circle" />
+          </svg>
+        </div>
+        <div class="stat-card__value-row"><span class="stat-card__value">6</span><span
+            class="stat-card__unit">units</span></div>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="report-card__head">
+        <div>
+          <div class="report-card__title">Status Distribution</div>
+          <div class="report-card__desc">Current shelf lifecycle across 142 items</div>
+        </div>
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--color-text-muted);">
+          <use href="#icon-donut" />
+        </svg>
+      </div>
+      <div class="dist-bar" role="img" aria-label="Status distribution across five tiers">
+        <div class="dist-bar__seg--safe" style="width:88%"></div>
+        <div class="dist-bar__seg--expiring" style="width:9.5%"></div>
+        <div class="dist-bar__seg--urgent" style="width:2%"></div>
+        <div class="dist-bar__seg--today" style="width:0.8%"></div>
+        <div class="dist-bar__seg--expired" style="width:0.3%"></div>
+      </div>
+      <div class="dist-row">
+        <div class="dist-row__left"><span class="dist-row__dot dist-row__dot--safe"></span>Safe (&gt;30d)</div>
+        <div class="dist-row__right"><strong>1,620</strong> units · 109 items</div>
+      </div>
+      <div class="dist-row">
+        <div class="dist-row__left"><span class="dist-row__dot dist-row__dot--expiring"></span>Expiring Soon (8–30d)
+        </div>
+        <div class="dist-row__right"><strong>176</strong> units · 18 items</div>
+      </div>
+      <div class="dist-row">
+        <div class="dist-row__left"><span class="dist-row__dot dist-row__dot--urgent"></span>Urgent (1–7d)</div>
+        <div class="dist-row__right"><strong>38</strong> units · 8 items</div>
+      </div>
+      <div class="dist-row">
+        <div class="dist-row__left"><span class="dist-row__dot dist-row__dot--today"></span>Expires Today (0d)</div>
+        <div class="dist-row__right"><strong>14</strong> units · 1 item</div>
+      </div>
+      <div class="dist-row">
+        <div class="dist-row__left"><span class="dist-row__dot dist-row__dot--expired"></span>Expired (&lt;0d)</div>
+        <div class="dist-row__right"><strong>6</strong> units · 6 items</div>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="report-card__head">
+        <div>
+          <div class="report-card__title">4-Week Expiry Movement</div>
+          <div class="report-card__desc">Expected shelf expiration trajectory</div>
+        </div>
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--color-text-muted);">
+          <use href="#icon-bar-chart" />
+        </svg>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-chart__col"><span class="bar-chart__value" style="color:var(--status-urgent-text);">58</span>
+          <div class="bar-chart__bar" style="height:56%;background:var(--status-urgent-text);"></div><span
+            class="bar-chart__label">This Wk</span>
+        </div>
+        <div class="bar-chart__col"><span class="bar-chart__value" style="color:var(--status-expiring-text);">42</span>
+          <div class="bar-chart__bar" style="height:40%;background:var(--status-expiring-text);"></div><span
+            class="bar-chart__label">Wk 2</span>
+        </div>
+        <div class="bar-chart__col"><span class="bar-chart__value" style="color:var(--color-primary);">86</span>
+          <div class="bar-chart__bar" style="height:82%;background:var(--color-primary);"></div><span
+            class="bar-chart__label">Wk 3</span>
+        </div>
+        <div class="bar-chart__col"><span class="bar-chart__value" style="color:var(--color-primary);">48</span>
+          <div class="bar-chart__bar" style="height:46%;background:var(--color-primary);"></div><span
+            class="bar-chart__label">Wk 4</span>
+        </div>
+      </div>
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;background:var(--color-surface-subtle);padding:10px 12px;border-radius:8px;margin-top:12px;font-size:12px;">
+        <span style="display:flex;align-items:center;gap:6px;color:var(--color-text-secondary);"><svg class="icon"
+            viewBox="0 0 24 24" style="width:14px;height:14px;color:var(--status-urgent-text);">
+            <use href="#icon-info" />
+          </svg>Week 3 restock peak</span>
+        <strong>234 units total</strong>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="report-card__head">
+        <div>
+          <div class="report-card__title">Category Exposure</div>
+          <div class="report-card__desc">Inventory and attention counts by department</div>
+        </div>
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--color-text-muted);">
+          <use href="#icon-tag" />
+        </svg>
+      </div>
+      <div class="category-row">
+        <div class="category-row__left">
+          <div class="category-row__icon"><svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+              <use href="#icon-tag" />
+            </svg></div>
+          <div>
+            <div class="category-row__name">Dairy &amp; Eggs</div>
+            <div class="category-row__count">34 stock items</div>
+          </div>
+        </div>
+        <span class="category-pill category-pill--warn">5 expiring</span>
+      </div>
+      <div class="category-row">
+        <div class="category-row__left">
+          <div class="category-row__icon"><svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+              <use href="#icon-tag" />
+            </svg></div>
+          <div>
+            <div class="category-row__name">Bakery</div>
+            <div class="category-row__count">18 stock items</div>
+          </div>
+        </div>
+        <span class="category-pill category-pill--warn">6 expiring</span>
+      </div>
+      <div class="category-row">
+        <div class="category-row__left">
+          <div class="category-row__icon"><svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+              <use href="#icon-tag" />
+            </svg></div>
+          <div>
+            <div class="category-row__name">Fresh Produce</div>
+            <div class="category-row__count">22 stock items</div>
+          </div>
+        </div>
+        <span class="category-pill category-pill--warn">8 expiring</span>
+      </div>
+      <div class="category-row">
+        <div class="category-row__left">
+          <div class="category-row__icon"><svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+              <use href="#icon-tag" />
+            </svg></div>
+          <div>
+            <div class="category-row__name">Packaged Goods</div>
+            <div class="category-row__count">45 stock items</div>
+          </div>
+        </div>
+        <span class="category-pill category-pill--info">1 expiring</span>
+      </div>
+      <div class="category-row">
+        <div class="category-row__left">
+          <div class="category-row__icon"><svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+              <use href="#icon-tag" />
+            </svg></div>
+          <div>
+            <div class="category-row__name">Beverages</div>
+            <div class="category-row__count">23 stock items</div>
+          </div>
+        </div>
+        <span class="category-pill category-pill--none">0 expiring</span>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn--full" onclick="exportCsv()">
+      <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;">
+        <use href="#icon-download" />
+      </svg>
+      Export Inventory CSV
+    </button>
+    <p style="text-align:center;font-size:12px;color:var(--color-text-secondary);margin-top:8px;">Includes barcode data,
+      expiry dates, and shelf locations.</p>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav__row">
+      <a class="bottom-nav__item" href="dashboard.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-home" />
+        </svg>Home</a>
+      <a class="bottom-nav__item" href="inventory.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-box" />
+        </svg>Stock</a>
+      <a class="bottom-nav__item" href="add-product.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-plus-circle" />
+        </svg>Add</a>
+      <a class="bottom-nav__item" href="settings.html"><svg class="icon" viewBox="0 0 24 24">
+          <use href="#icon-person" />
+        </svg>Account</a>
+    </div>
+  </nav>
+
+  <div id="toast"
+    style="position:fixed;left:16px;right:16px;bottom:24px;background:#1F2937;color:#fff;padding:12px 16px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;font-size:13px;transform:translateY(120%);opacity:0;transition:all 0.2s ease;z-index:60;">
+    <span>Report compiled (142 lines exported).</span>
+    <strong style="color:#A7F3D0;">SAVED</strong>
+  </div>
+
+  <script>
+    function exportCsv() {
+      const toast = document.getElementById('toast');
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.transform = 'translateY(120%)'; toast.style.opacity = '0'; }, 2600);
+    }
+  </script>
+
+</body>
+
+</html>
